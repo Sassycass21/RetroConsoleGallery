@@ -6,6 +6,11 @@ const loadButton = document.getElementById("loadConsoles");
 
 loadButton.addEventListener("click", function () {
     console.log("Button clicked!");
+    const loadMessages = document.getElementById("loadMessages");
+    loadMessages.textContent = "Loading...";
+
+    document.getElementById("consoleCards").innerHTML = "";
+    document.getElementById("consoleSummary").textcontent = "";
 
     // send a GET request to the API
     const xhr = new XMLHttpRequest();
@@ -16,15 +21,21 @@ loadButton.addEventListener("click", function () {
     // parse the data when ready
 
     function pullConsoles() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            var consoles = xhr.responseText;
-            var consoleObj = JSON.parse(consoles);
-            var consoleArray = consoleObj.consoles;
+        if (xhr.readyState == 4) {
+            loadMessages.textContent = "";
 
-            console.log(consoleObj);
-            console.log(consoleArray);
+            if (xhr.status == 200) {
+                var consoles = xhr.responseText;
+                var consoleObj = JSON.parse(consoles);
+                var consoleArray = consoleObj.consoles;
 
-            renderConsoles(consoleArray);
+                console.log(consoleObj);
+                console.log(consoleArray);
+
+                renderConsoles(consoleArray);
+            } else {
+                loadMessages.textContent = "Error loading consoles. HTTP status: " + xhr.status;
+            }
         }
     };
 
