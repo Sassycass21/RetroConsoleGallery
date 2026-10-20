@@ -10,7 +10,7 @@ loadButton.addEventListener("click", function () {
     loadMessages.textContent = "Loading...";
 
     document.getElementById("consoleCards").innerHTML = "";
-    document.getElementById("consoleSummary").textcontent = "";
+    document.getElementById("consoleSummary").textContent = "";
 
     // send a GET request to the API
     const xhr = new XMLHttpRequest();
