@@ -38,13 +38,34 @@ function renderConsoles(consoleArray) {
     const consoleCards = document.getElementById("consoleCards");
     consoleCards.innerHTML = "";
 
+    const totalConsoles = consoleArray.length;
+
+    let oldest = consoleArray[0];
+    let newest = consoleArray[0];
+
+    for (let console of consoleArray) {
+        if (console.year < oldest.year) {
+            oldest = console;
+        }
+
+        if (console.year > newest.year) {
+            newest = console;
+        }
+    }
+
+    const summary = document.getElementById("consoleSummary");
+
+    summary.textContent = totalConsoles + " consoles · Oldest: " +
+        oldest.name + " (" + oldest.year + ")" +
+        " · Newest: " + newest.name + " (" + newest.year + ")";
+
     consoleArray.forEach((console) => {
         const card = document.createElement("div");
-        
+
         const img = document.createElement("img");
         img.src = console.image;
         img.alt = console.name;
-        
+
         const title = document.createElement("h2");
         title.textContent = console.name;
 
@@ -56,5 +77,5 @@ function renderConsoles(consoleArray) {
         card.appendChild(details);
         consoleCards.appendChild(card);
 
-        });
-    };
+    });
+};
